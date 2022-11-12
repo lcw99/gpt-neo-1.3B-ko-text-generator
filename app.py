@@ -96,7 +96,7 @@ def sample_sequence(model, length, context, num_samples=1, temperature=1, top_k=
 
 
 MODEL_CLASSES = {
-    'gpt2': (GPT2LMHeadModel, GPT2Tokenizer),
+    'lcw99/gpt-neo-1.3B-ko': (GPTNeoForCausalLM, AutoTokenizer),
     # 'ctrl': (CTRLLMHeadModel, CTRLTokenizer),
     # 'openai-gpt': (OpenAIGPTLMHeadModel, OpenAIGPTTokenizer),
     # 'xlnet': (XLNetLMHeadModel, XLNetTokenizer),
