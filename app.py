@@ -26,15 +26,15 @@ MODEL_CLASSES = {
 
 
 # @st.cache
-def load_model(model_name):
+def load_tokenizer(model_name):
     model_class, tokenizer_class = MODEL_CLASSES[model_name]
 
-    model = model_class.from_pretrained(model_name)
+    #model = model_class.from_pretrained(model_name)
     tokenizer = tokenizer_class.from_pretrained(model_name)
 
-    model.to(device)
-    model.eval()
-    return model, tokenizer
+    #model.to(device)
+    #model.eval()
+    return tokenizer
 
 
 if __name__ == "__main__":
@@ -47,17 +47,17 @@ if __name__ == "__main__":
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model, tokenizer = load_model(model_name)
+    tokenizer = load_tokenizer(model_name)
 
     # making a copy so streamlit doesn't reload models
-    model = copy.deepcopy(model)
+    #model = copy.deepcopy(model)
     tokenizer = copy.deepcopy(tokenizer)
 
     text_generation = pipeline(
         "text-generation",
         model=model_name,
         tokenizer=tokenizer,
-        device=0
+        device=device
     )
 
     st.title("Text generation with transformers")
