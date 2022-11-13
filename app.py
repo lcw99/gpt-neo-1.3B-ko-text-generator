@@ -31,7 +31,7 @@ def load_model(model_name):
 
     model = model_class.from_pretrained(
         model_name, 
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,
         low_cpu_mem_usage=True,
         use_cache=False,
         gradient_checkpointing=False,
