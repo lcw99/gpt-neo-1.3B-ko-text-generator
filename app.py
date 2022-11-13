@@ -2,7 +2,7 @@ import copy
 
 import torch
 import torch.nn.functional as F
-from transformers import GPT2LMHeadModel, GPT2Tokenizer, GPTNeoForCausalLM, AutoTokenizer
+from transformers import GPTNeoForCausalLM, AutoTokenizer
 import numpy as np
 from tqdm import trange
 
@@ -105,7 +105,7 @@ MODEL_CLASSES = {
 }
 
 
-@st.cache
+# @st.cache
 def load_model(model_name):
     model_class, tokenizer_class = MODEL_CLASSES[model_name]
 
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     model, tokenizer = load_model(model_name)
 
     # making a copy so streamlit doesn't reload models
-    model = copy.deepcopy(model)
-    tokenizer = copy.deepcopy(tokenizer)
+    # model = copy.deepcopy(model)
+    # tokenizer = copy.deepcopy(tokenizer)
 
     st.title("Text generation with transformers")
     raw_text = st.text_input("Enter start text and press enter")
