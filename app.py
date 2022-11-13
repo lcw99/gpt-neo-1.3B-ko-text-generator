@@ -36,7 +36,7 @@ def load_model(model_name):
         use_cache=False,
         gradient_checkpointing=False,
         device_map='auto',
-        load_in_8bit=True
+        #load_in_8bit=True
     )
     tokenizer = tokenizer_class.from_pretrained(model_name)
 
