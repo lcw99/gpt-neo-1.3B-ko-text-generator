@@ -130,8 +130,8 @@ if __name__ == "__main__":
     model, tokenizer = load_model(model_name)
 
     # making a copy so streamlit doesn't reload models
-    # model = copy.deepcopy(model)
-    # tokenizer = copy.deepcopy(tokenizer)
+    model = copy.deepcopy(model)
+    tokenizer = copy.deepcopy(tokenizer)
 
     st.title("Text generation with transformers")
     raw_text = st.text_input("Enter start text and press enter")
