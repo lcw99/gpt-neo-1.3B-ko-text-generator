@@ -51,31 +51,29 @@ if __name__ == "__main__":
     raw_text = st.text_input("Enter start text and press enter")
 
     if raw_text:
-        st.write('loading model wait...', model_name)
-        
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    tokenizer = load_tokenizer(model_name)
 
-    # making a copy so streamlit doesn't reload models
-    # model = copy.deepcopy(model)
-    # tokenizer = copy.deepcopy(tokenizer)
+        with st.spinner(f'loading model({model_name}) wait...'):
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            tokenizer = load_tokenizer(model_name)
 
-    text_generation = pipeline(
-        "text-generation",
-        model=model_name,
-        tokenizer=tokenizer,
-    )
+            # making a copy so streamlit doesn't reload models
+            # model = copy.deepcopy(model)
+            # tokenizer = copy.deepcopy(tokenizer)
 
-    if raw_text:
-        st.write('generation text wait...')
-        
-        generated = text_generation(
-            raw_text,
-            max_length=length,
-            do_sample=True,
-            min_length=100,
-            num_return_sequences=3,
-            top_p=top_p,
-            top_k=top_k
-        )
-        st.write(*generated)
+            text_generation = pipeline(
+                "text-generation",
+                model=model_name,
+                tokenizer=tokenizer,
+            )
+
+        with st.spinner(f'Generating text wait...'):        
+            generated = text_generation(
+                raw_text,
+                max_length=length,
+                do_sample=True,
+                min_length=100,
+                num_return_sequences=3,
+                top_p=top_p,
+                top_k=top_k
+            )
+            st.write(*generated)
