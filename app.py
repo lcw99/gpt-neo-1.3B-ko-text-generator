@@ -20,7 +20,7 @@ def set_seed(seed):
 
 
 MODEL_CLASSES = {
-    'lcw99/gpt-neo-1.3B-ko': (GPTNeoForCausalLM, AutoTokenizer),
+    'lcw99/gpt-neo-1.3B-ko-fp16': (GPTNeoForCausalLM, AutoTokenizer),
     'EleutherAI/gpt-neo-125M': (GPTNeoForCausalLM, AutoTokenizer),
 }
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     # Selectors
     model_name = st.sidebar.selectbox("Model", list(MODEL_CLASSES.keys()))
-    length = st.sidebar.slider("Length", 100, 2048, 300)
+    length = st.sidebar.slider("Length", 50, 2048, 100)
     temperature = st.sidebar.slider("Temperature", 0.0, 3.0, 0.8)
     top_k = st.sidebar.slider("Top K", 0, 10, 0)
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
@@ -95,7 +95,7 @@ if __name__ == "__main__":
                 attention_mask=encoded_input['attention_mask'].to(device),
                 max_length=length,
                 do_sample=True,
-                min_length=50,
+                min_length=20,
                 top_p=top_p,
                 top_k=top_k
             )
