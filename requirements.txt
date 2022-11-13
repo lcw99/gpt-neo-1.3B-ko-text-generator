@@ -1,7 +1,7 @@
+-i https://download.pytorch.org/whl/cu116
 torch
 torchvision 
 torchaudio 
-https://download.pytorch.org/whl/cu116
 transformers
 numpy
 tqdm
