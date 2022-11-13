@@ -20,8 +20,8 @@ def set_seed(seed):
 
 
 MODEL_CLASSES = {
-    #'EleutherAI/gpt-neo-125M': (GPTNeoForCausalLM, AutoTokenizer),
     'lcw99/gpt-neo-1.3B-ko': (GPTNeoForCausalLM, AutoTokenizer),
+    'EleutherAI/gpt-neo-125M': (GPTNeoForCausalLM, AutoTokenizer),
 }
 
 
@@ -39,6 +39,7 @@ def load_tokenizer(model_name):
 
 if __name__ == "__main__":
 
+
     # Selectors
     model_name = st.sidebar.selectbox("Model", list(MODEL_CLASSES.keys()))
     length = st.sidebar.slider("Length", 100, 2048, 500)
@@ -46,12 +47,18 @@ if __name__ == "__main__":
     top_k = st.sidebar.slider("Top K", 0, 10, 0)
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
 
+    st.title("Text generation with transformers")
+    raw_text = st.text_input("Enter start text and press enter")
+
+    if raw_text:
+        st.write('loading model wait...', model_name)
+        
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     tokenizer = load_tokenizer(model_name)
 
     # making a copy so streamlit doesn't reload models
-    #model = copy.deepcopy(model)
-    tokenizer = copy.deepcopy(tokenizer)
+    # model = copy.deepcopy(model)
+    # tokenizer = copy.deepcopy(tokenizer)
 
     text_generation = pipeline(
         "text-generation",
@@ -59,9 +66,9 @@ if __name__ == "__main__":
         tokenizer=tokenizer,
     )
 
-    st.title("Text generation with transformers")
-    raw_text = st.text_input("Enter start text and press enter")
     if raw_text:
+        st.write('generation text wait...')
+        
         generated = text_generation(
             raw_text,
             max_length=length,
