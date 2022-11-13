@@ -34,7 +34,7 @@ def load_model(model_name):
         #torch_dtype=torch.float16,
         low_cpu_mem_usage=True,
         use_cache=False,
-        gradient_checkpointing=True,
+        gradient_checkpointing=False,
         device_map='auto',
         #load_in_8bit=True
     )
