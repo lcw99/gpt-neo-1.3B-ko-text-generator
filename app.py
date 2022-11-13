@@ -34,7 +34,7 @@ def load_model(model_name):
         #torch_dtype=torch.float16,
         low_cpu_mem_usage=True,
         use_cache=False,
-        gradient_checkpointing=False,
+        gradient_checkpointing=True,
         device_map='auto',
         #load_in_8bit=True
     )
@@ -55,8 +55,8 @@ if __name__ == "__main__":
     top_k = st.sidebar.slider("Top K", 0, 10, 0)
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
 
-    st.title("Text generation with transformers")
-    raw_text = st.text_input("Enter start text and press enter", placeholder="건강한 몸은")
+    st.title("Text generation with GPT-neo Korean")
+    raw_text = st.text_input("시작하는 문장을 입력하고 엔터를 치세요.", placeholder="골프를 잘 치고 싶다면,")
 
     if raw_text:
 
@@ -90,6 +90,7 @@ if __name__ == "__main__":
             encoded_input = tokenizer(raw_text, return_tensors='pt')
             output_sequences = model.generate(
                 input_ids=encoded_input['input_ids'].to(device),
+                attention_mask=encoded_input['attention_mask'].to(device),
                 max_length=length,
                 do_sample=True,
                 min_length=50,
