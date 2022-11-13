@@ -36,6 +36,7 @@ def load_model(model_name):
         use_cache=False,
         gradient_checkpointing=False,
         device_map='auto',
+        #revision="float16",
         #load_in_8bit=True
     )
     tokenizer = tokenizer_class.from_pretrained(model_name)
@@ -56,10 +57,11 @@ if __name__ == "__main__":
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
 
     st.title("Text generation with GPT-neo Korean")
-    raw_text = st.text_input("시작하는 문장을 입력하고 엔터를 치세요.", placeholder="골프를 잘 치고 싶다면,")
+    raw_text = st.text_input("시작하는 문장을 입력하고 엔터를 치세요.", placeholder="골프를 잘 치고 싶다면,", 
+                             key="text_input1")
 
     if raw_text:
-
+        st.write(raw_text)
         with st.spinner(f'loading model({model_name}) wait...'):
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             model, tokenizer = load_model(model_name)
