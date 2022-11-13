@@ -36,7 +36,7 @@ def load_model(model_name):
         use_cache=False,
         gradient_checkpointing=False,
         device_map='auto',
-        #load_in_8bit=True
+        load_in_8bit=True
     )
     tokenizer = tokenizer_class.from_pretrained(model_name)
 
@@ -89,7 +89,7 @@ if __name__ == "__main__":
             
             encoded_input = tokenizer(raw_text, return_tensors='pt')
             output_sequences = model.generate(
-                input_ids=encoded_input['input_ids'].cuda(),
+                input_ids=encoded_input['input_ids'].to(device),
                 max_length=length,
                 do_sample=True,
                 min_length=50,

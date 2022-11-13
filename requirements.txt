@@ -3,3 +3,4 @@ transformers
 numpy
 tqdm
 accelerate
+bitsandbytes==0.35.4
