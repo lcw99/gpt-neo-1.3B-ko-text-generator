@@ -57,7 +57,6 @@ if __name__ == "__main__":
         "text-generation",
         model=model_name,
         tokenizer=tokenizer,
-        device=device
     )
 
     st.title("Text generation with transformers")
