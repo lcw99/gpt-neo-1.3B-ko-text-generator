@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
     # Selectors
     model_name = st.sidebar.selectbox("Model", list(MODEL_CLASSES.keys()))
-    length = st.sidebar.slider("Length", 20, 100, 20)
+    length = st.sidebar.slider("Length", 100, 2048, 1024)
     temperature = st.sidebar.slider("Temperature", 0.0, 3.0, 0.8)
     top_k = st.sidebar.slider("Top K", 0, 10, 0)
     top_p = st.sidebar.slider("Top P", 0.0, 1.0, 0.7)
